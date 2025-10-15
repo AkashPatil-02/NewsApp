@@ -4,11 +4,12 @@ import 'package:flutter_application_1/providers/savednews.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SavedScreen extends ConsumerWidget {
-  const SavedScreen({super.key});
+  final String uid;
+  const SavedScreen({super.key, required this.uid});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final savedNewsAsync = ref.watch(savedNewsProvider);
+    final savedNewsAsync = ref.watch(savedNewsProvider(uid));
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +41,7 @@ class SavedScreen extends ConsumerWidget {
                       ),
                     );
                     if (confirm == true) {
-                      ref.read(savedNewsController).clearAll();
+                      ref.read(savedNewsController).clearAll(uid);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("All saved news cleared")),
                       );
@@ -86,7 +87,7 @@ class SavedScreen extends ConsumerWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        ref.read(savedNewsController).removeNews(url);
+                        ref.read(savedNewsController).removeNews(uid, url);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Removed: $title")),
                         );

@@ -15,7 +15,6 @@ class SearchScreen extends ConsumerStatefulWidget {
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
-    final saveNews = ref.watch(savedNewsProvider);
     return Scaffold(
       body: Center(
         child: IconButton(

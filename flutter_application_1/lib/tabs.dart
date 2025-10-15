@@ -45,9 +45,9 @@ class _TabsState extends ConsumerState<Tabs> {
   }
 
   late final List<Widget> _pages = [
-    DashScreen(),
+    DashScreen(uid: widget.uid),
     const SearchScreen(),
-    SavedScreen(),
+    SavedScreen(uid: widget.uid),
   ];
 
   @override

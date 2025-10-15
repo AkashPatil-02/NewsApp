@@ -5,12 +5,13 @@ import 'package:flutter_application_1/providers/savednews.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashScreen extends ConsumerWidget {
-  const DashScreen({super.key});
+  final String uid;
+  const DashScreen({super.key, required this.uid});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final fetch = ref.watch(FetchNews);
-    final savedNewsAsync = ref.watch(savedNewsProvider);
+    final savedNewsAsync = ref.watch(savedNewsProvider(uid));
 
     return Scaffold(
       body: fetch.when(
@@ -106,7 +107,7 @@ class DashScreen extends ConsumerWidget {
                                         : () {
                                             ref
                                                 .read(savedNewsController)
-                                                .saveNews({
+                                                .saveNews(uid, {
                                                   'title': title,
                                                   'description': description,
                                                   'imageUrl': imageUrl,
